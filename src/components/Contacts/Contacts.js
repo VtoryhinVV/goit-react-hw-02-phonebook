@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
-export function Contacts({ contactsInfo }) {
+
+import { ContactsItem, ContactInfo, ContactsButton } from './Contacts.styled';
+export function Contacts({ contactsInfo, onDelete }) {
   return (
     <div>
       <ul>
-        {contactsInfo().map(({ id, name, number }) => (
-          <li key={id}>
-            <p>
-              <span>{name}</span> : <span>{number}</span>
-            </p>
-          </li>
+        {contactsInfo().map(({ id, name, number }, index) => (
+          <ContactsItem key={id}>
+            <ContactInfo>
+              <span>{name}</span>: <span>{number}</span>
+            </ContactInfo>
+            <ContactsButton id={index} onClick={onDelete} type="button">
+              Delete
+            </ContactsButton>
+          </ContactsItem>
         ))}
       </ul>
     </div>
@@ -17,5 +22,5 @@ export function Contacts({ contactsInfo }) {
 
 Contacts.propTypes = {
   contactsInfo: PropTypes.func.isRequired,
-  // handlDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

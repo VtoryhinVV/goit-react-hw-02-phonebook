@@ -21,6 +21,10 @@ export class App extends Component {
       name,
       number,
     };
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
     }));
@@ -37,15 +41,18 @@ export class App extends Component {
     );
   };
 
+  handlDelete = event => {
+    const { id } = event.target;
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter((el, i) => i !== Number(id)),
+    }));
+  };
+
   render() {
     return (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          color: '#010101',
+          margin: '20px 40px',
         }}
       >
         <h1>Phonebook</h1>
@@ -53,7 +60,10 @@ export class App extends Component {
 
         <h2>Contacts</h2>
         <Filter filterName={this.trackInputFilter} />
-        <Contacts contactsInfo={this.filterListName} />
+        <Contacts
+          contactsInfo={this.filterListName}
+          onDelete={this.handlDelete}
+        />
       </div>
     );
   }

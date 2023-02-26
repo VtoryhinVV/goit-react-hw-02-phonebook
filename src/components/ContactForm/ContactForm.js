@@ -1,6 +1,12 @@
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import { object, string } from 'yup';
-
+import {
+  Form,
+  Label,
+  ErrorMessage,
+  Field,
+  FormSubmit,
+} from './ContactForm.styled';
 let initialValues = { name: '', number: '' };
 
 let userSchema = object({
@@ -19,17 +25,17 @@ export const ContactForm = ({ onSubmit }) => {
       }}
     >
       <Form>
-        <label>
+        <Label>
           Name
           <Field name="name"></Field>
           <ErrorMessage name="name" component="span" />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Number
           <Field name="number"></Field>
           <ErrorMessage name="number" component="span" />
-        </label>
-        <button type="submit">Add contact</button>
+        </Label>
+        <FormSubmit type="submit">Add contact</FormSubmit>
       </Form>
     </Formik>
   );
